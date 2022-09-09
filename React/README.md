@@ -4,7 +4,7 @@
 | **Date** | **Chapter** |                        **Contents**                        | **Status 🟢🟡🔴** | **Link** |
 | :------: | :---------: | :--------------------------------------------------------: | :---------: | :------: |
 | 22-09-08 | 1장 | 리액트 시작 | 🟢 | [Chapter1](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter1.md) |
-| 22-09-09 | 2장 | JSX | | |
+| 22-09-09 | 2장 | JSX | 🟢 | [Chapter2](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter2.md) |
 | 22-09-10 | 3장 | 컴포넌트 | | |
 | 22-09-11 | 4장 | 이벤트 핸들링 | | |
 | 22-09-12 | 5장 | ref: DOM에 이름 달기 | | |
