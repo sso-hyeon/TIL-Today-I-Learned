@@ -9,7 +9,7 @@
 | 22-09-12 |     5장     |                    ref: DOM에 이름 달기                    |      🟢      | [Chapter5](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter5.md) |
 | 22-09-13 |     6장     |                       컴포넌트 반복                        |      🟢      | [Chapter6](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter6.md) |
 | 22-09-14 |     7장     |               컴포넌트의 라이프사이클 메서드               |      🟢      | [Chapter7](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter7.md) |
-| 22-09-15 |     8장     |                           Hooks                            |              |                                                                                          |
+| 22-09-15 |     8장     |                           Hooks                            |      🟢      | [Chapter8](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter8.md) |
 | 22-09-16 |     9장     |                     컴포넌트 스타일링                      |              |                                                                                          |
 | 22-09-17 |    10장     |              일정관리 웹 애플리케이션 만들기               |              |                                                                                          |
 | 22-09-18 |    11장     |                    컴포넌트 성능 최적화                    |              |                                                                                          |
