@@ -10,7 +10,7 @@
 | 22-09-13 |     6장     |                       컴포넌트 반복                        |      🟢      | [Chapter6](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter6.md) |
 | 22-09-14 |     7장     |               컴포넌트의 라이프사이클 메서드               |      🟢      | [Chapter7](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter7.md) |
 | 22-09-17 |     8장     |                           Hooks                            |      🟢      | [Chapter8](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter8.md) |
-| 22-09-18 |     9장     |                     컴포넌트 스타일링                      |              |                                                                                          |
+| 22-09-18 |     9장     |                     컴포넌트 스타일링                      |      🟢      | [Chapter9](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/React/chapter9.md) |
 | 22-09-19 |    10장     |              일정관리 웹 애플리케이션 만들기               |              |                                                                                          |
 | 22-09-20 |    11장     |                    컴포넌트 성능 최적화                    |              |                                                                                          |
 | 22-09-21 |    12장     |          immer를 사용하여 더 쉽게 불변성 유지하기          |              |                                                                                          |
