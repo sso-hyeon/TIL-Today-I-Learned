@@ -201,3 +201,356 @@ export default {
 };
 </script>
 ```
+
+### 라디오(input type=radio)
+
+-   v-bind:value
+
+```vue
+<template>
+    <div>
+        <label><input type="radio" v-bind:value="radioValue1" v-model="picked" /> 서울</label>
+        <label><input type="radio" v-bind:value="radioValue2" v-model="picked" /> 부산</label>
+        <label><input type="radio" v-bind:value="radioValue3" v-model="picked" /> 제주</label>
+        <br />
+        <span>선택한 지역 : {{ picked }}</span>
+    </div>
+</template>
+<script>
+export default {
+    name: "DataBinding",
+    components: {},
+    data() {
+        return {
+            picked: "",
+            radioValue1: "서울",
+            radioValue2: "부산",
+            radioValue3: "제주"
+        };
+    }
+};
+</script>
+```
+
+🚀 Form Element에 속하는 객체들은 v-model 디렉티브 사용하여 양방향 데이터 바인딩 처리를 할 수 있다!
+
+### 속성(Attribute)
+
+-   value를 제외한 HTML 객체의 속성에 데이터 바인딩 하기 위해서 v-bind:디렉티브 사용
+-   v-bind를 생략하고 :으로 사용 가능
+
+### img 객체의 src
+
+```vue
+<template>
+    <div>
+        <img v-bind:src="imgSrc" />
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            imgSrc: "https://kr.vuejs.org/images/logo.png"
+        };
+    }
+};
+</script>
+```
+
+### button 객체의 disabled
+
+-   조회화면에서 조회 조건 중 필수 입력 조건이 모두 입력 되었을 때 버튼 활성화
+-   권한이 있는 사용자에게만 허용되는 버튼에 대해 활성화
+-   예제 : input type=text에 데이터가 입력되는 순간 버튼 활성화
+
+```vue
+<template>
+    <div>
+        <input type="text" v-model="textValue" />
+        <button type="button" v-bind:disabled="textValue == ''">Click</button>
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            textValue: ""
+        };
+    }
+};
+</script>
+```
+
+### 클래스 바인딩
+
+-   반드시 적용해야 하는 클래스는 기존 html에서 사용하던 방식처럼 class="클래스명", 조건에 따라 바인딩할 클래스의 경우는 v-bind:class를 이용해서 추가적으로 정의하여 사용
+-   기본 클래스와 데이터 바인딩 처리를 하는 클래스를 공존해서 사용할 수 있다
+
+```vue
+<template>
+    <div class="container" v-bind:class="{ active: isActive, 'text-red': hasError }">Class Binding</div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            isActive: true,
+            hasError: false
+        };
+    }
+};
+</script>
+<style scoped>
+container {
+    width: 100%;
+    height: 200px;
+}
+.active {
+    background-color: yellow;
+    font-weight: bold;
+}
+.text-red {
+    color: red;
+}
+</style>
+```
+
+-   클래스 바인딩의 경우 오브젝트 형태로 사용
+-   바인딩할 클래스 Key, 바인딩 여부를 true/false로 지정
+-   배열을 사용해서 클래스를 바인딩 가능
+
+```vue
+<template>
+    <div class="container" v-bind:class="[activeClass, errorClass]">Class Binding</div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            activeClass: "active",
+            errorClass: "text-red"
+        };
+    }
+};
+</script>
+```
+
+-   배열을 사용하는 경우 특정 조건에 따른 클래스 바인딩 처리를 true/false로 할 수 없다.
+
+### 인라인 스타일 바인딩
+
+-   데이터를 오브젝트로 선언해 바인딩 가능
+
+```vue
+<template>
+    <div v-bind:style="styleObject">인라인 스타일 바인딩</div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            styleObject: {
+                color: "red",
+                fontSize: "13px"
+            }
+        };
+    }
+};
+</script>
+```
+
+-   클래스 바인딩 처럼 배열을 이용해서 바인딩 가능
+
+```vue
+<template>
+    <div v-bind:style="[baseStyle, addStyle]">인라인 스타일 바인딩</div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            baseStyle: "background-color:yellow; width:100%; height:200px;",
+            addStyle: "color:red; font-weight:bold;"
+        };
+    }
+};
+</script>
+```
+
+## 리스트 렌더링(v-for)
+
+-   select의 option, table의 tr 데이터 등 반복되는 객체를 처리할 때 사용
+-   다중 데이터 처리할 때 사용
+-   반복적으로 렌더링 할 html 태그에 v-for 디렉티브 사용
+
+`v-for="(item, index) in items"`
+
+-   items : 데이터 배열
+
+```html
+<table>
+    <thead>
+        <tr>
+            <th>제품명</th>
+            <th>가격</th>
+            <th>카테고리</th>
+            <th>배송료</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(product, index) in productList">
+            <td>{{product.product_name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.delivery_price}}</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+## 렌더링 문법(v-if, v-show)
+
+### v-if
+
+```html
+<h1 v-if="bRender">bRender가 true면, h1 블록이 화면에 보이게 됩니다.</h1>
+```
+
+-   v-else 디렉티브를 사용해서 else 표현식 사용
+
+```html
+<h1 v-if="bRender">bRender가 true면, h1 블록이 화면에 보이게 됩니다.</h1>
+<h1 v-else>bRender가 true가 아니면, 현재 블록이 화면에 보이게 됩니다.</h1>
+```
+
+-   v-else-if 디렉티브 사용해서 else if 표현식 사용
+
+```html
+<h1 v-if="type=='A'">A</h1>
+<h1 v-else-if="type=='B'">B</h1>
+<h1 v-else>C</h1>
+```
+
+### v-show
+
+```html
+<h1 v-show="bShow">bShow가 true이면, 현재 블록이 화면에 보이게 됩니다.</h1>
+```
+
+### v-if 와 v-show 차이점
+
+|                                       **v-if**                                       |                                                              **v-show**                                                              |
+| :----------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------: |
+|                 조건 만족시 html 블록 생성, 불만족시 html 블록 삭제                  | 조건 만족 여부에 상관없이 무조건 html 블록 생성, 만족시 css의 display를 이용해서 화면에 보이게 되고 조건 불만족시 화면에서 숨김 처리 |
+| toggle이 일어날 때 v-show보다 더 많은 자원 사용 블록 전체를 생성했다가 삭제하기 때문 |                    처음 조건 만족하지 않더라도 html 블록을 무조건 생성한다는 단점 > 초기에 무조건 html 블록 생성                     |
+
+🚀 해당 html 블록이 화면 내에서 자주 toggle이 일어나면 v-show 사용, 아니라면 v-if
+
+## 이벤트 처리(v-on)
+
+-   @로 사용도 가능
+
+### 클릭 이벤트(v-on:click)
+
+-   v-on:click="메소드명" / @click="메소드명"
+
+```vue
+<template>
+    <div>
+        <button type="button" @click="increaseCounter">Add 1</button>
+        <p>The counter is : {{ counter }}</p>
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            counter: 0
+        };
+    },
+    methods: {
+        increaseCounter() {
+            this.counter = this.counter + 1;
+        }
+    }
+};
+</script>
+```
+
+-   클릭 이벤트를 통해 지정된 함수로 파라미터를 전달하고 싶을 때
+
+```vue
+<button type="button" @click="setCount(7)">Set 7</button>
+<p>The counter is : {{counter}}</p>
+
+methods: { setCount(counter) { this.counter = counter; } }
+```
+
+-   클릭 이벤트 발생 시 여러 개의 함수 호출
+
+```vue
+<button type="button" @click="one(), two()">Click</button>
+```
+
+### Change 이벤트
+
+```vue
+<template>
+    <select v-model="selectValue" @change="changeSelect">
+        <option value="서울">서울</option>
+        <option value="부산">부산</option>
+        <option value="제주">제주</option>
+    </select>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            selectValue: ""
+        };
+    },
+    methods: {
+        changeSelect() {
+            alert(this.selectValue);
+        }
+    }
+};
+</script>
+```
+
+### Key 이벤트
+
+-   키보드 자판을 입력할 때 발생하는 이벤트
+-   입력창에 엔터키가 입력되는지를 계속 감시하다가 해당 키 입력되면 함수 호출
+
+```vue
+<input @keyup.enter="submit" />
+```
+
+> Key 이벤트 목록 : entder, tab, delete, esc, space, up, down, left, right
+
+-   Control, Shift, Alt 다른 키와 같이 사용되는 특수 키의 경우
+
+```vue
+<!-- Alt + Enter -->
+<input @keyup.alt.enter="clear" />
+<!-- Ctrl + Click -->
+<div @click.ctrl="doSomething">Do something</div>
+```
+
+## computed 와 watch
+
+-   Vue 인스턴스 내의 정의된 데이터 값에 변경이 일어나는 지 감시하고, 변경될 때마다 정의된 함수 실행
+-   사용되는 용도에 차이가 있다.
+
+### computed
+
+-   기존에 정의된 데이터 값을 기반으로 새로운 데이터 값을 활용하기 위해서 사용
+-   정의된 데이터 값을 바탕으로 새로운 데이터 값을 생성하고, 새로운 데이터 값에서 참조하고 있는 기존 데이터 값의 변경을 감지
+-   참조하고 있는 데이터 값의 변경과 상관없이 최초에 computed에 정의된 데이터 함수 실행
+
+### watch
+
+-   watch에 정의된 데이터 값 하나만을 감시하기 위한 용도로 사용
+-   실제 데이터 변경이 일어나기 전까지는 실행❌
