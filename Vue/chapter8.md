@@ -246,3 +246,135 @@ export default {
 };
 </script>
 ```
+
+### 부모 컴포넌트에서 자식 컴포넌트의 데이터 옵션 값 직접 변경하기
+
+-   부모 컴포넌트에서 자식 컴포넌트의 데이터 옵션 값을 직접 변경 가능
+
+```vue
+<!-- ChildComponent -->
+<template>
+    <h1>{{ msg }}</h1>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            msg: ""
+        };
+    }
+};
+</script>
+
+<!-- ParentComponent -->
+<template>
+    <child-component @send-message="sendMessage" ref="child_component" />
+    <button type="button" @click="changeChildData">Change Child Data</button>
+</template>
+<script>
+import ChildComponent from "./ChildComponent";
+export default {
+    components: { ChildComponent },
+    methods: {
+        changeChildData() {
+            this.$refs.child_component.msg = "부모 컴포넌트가 변경한 데이터";
+        }
+    }
+};
+</script>
+```
+
+### 자식 컴포넌트에서 부모 컴포넌트로 이벤트/데이터 전달하기 (커스텀 이벤트)
+
+-   $emit 사용
+-   자식 컴포넌트가 mounted 되면 $emit을 통해 부모 컴포넌트의 send-message 이벤트 호출 > 이때 msg 데이터를 파라미터로 전송한다.
+
+```vue
+<!-- ChildComponent -->
+<script>
+export default {
+    data() {
+        return {
+            msg: "자식 컴포넌트로부터 보내는 메시지"
+        };
+    }
+    mounted() {
+        this.$emit("send-message", this.msg)
+    }
+};
+</script>
+
+<!-- ParentComponent -->
+<template>
+    <child-component @send-message="sendMessage" />
+</template>
+
+<script>
+import ChildComponent from "./ChildComponent";
+export default {
+    components: { ChildComponent },
+    methods: {
+        sendMessage(data) {
+            console.log(data);
+        }
+    }
+};
+</script>
+```
+
+### 부모 컴포넌트에서 자식 컴포넌트의 데이터 옵션 값 동기화하기
+
+-   부모 컴포넌트에서 computed를 이용하면 자식 컴포넌트에 정의된 데이터 옵션 값의 변경사항을 항상 동기화시킬 수 있다.
+-   부모 컴포넌트에는 computed 옵션 사용 > 자식 컴포넌트 msg 값을 감지
+    > computed는 참조되고 있는 데이터의 변경사항을 바로 감지하여 반영
+-   computed 옵션을 이용하면 자식 컴포넌트의 데이터가 변경될 때마다 $emit을 통해 변경된 데이터를 전송하지 않아도 변경된 데이터 값 항상 확인
+
+```vue
+<!-- ChildComponent -->
+<template>
+    <button type="button" @click="childFunc" ref="btn">자식 컴포넌트 데이터 변경</button>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            msg: "메시지"
+        };
+    },
+    methods: {
+        childFunc() {
+            this.msg = "변경된 메시지";
+        }
+    }
+};
+</script>
+
+<!-- ParentComponent -->
+<template>
+    <button type="bitton" @click="checkChild">자식 컴포넌트 데이터 조회</button>
+    <child-component ref="child_component" />
+</template>
+<script>
+import ChildComponent from "./ChildComponent";
+export default {
+    components: { ChildComponent },
+    computed: {
+        msg() {
+            return this.$refs.child_component.msg;
+        }
+    },
+    methods: {
+        checkChild() {
+            alert(this.msg);
+        }
+    }
+};
+</script>
+```
+
+## Slot
+
+-   컴포넌트 내에서 다른 컴포넌트를 사용할 떄 쓰는 컴포넌트의 마크업을 재정의하거나 확장
+-   컴포넌트의 재활용성을 높여주는 기능
+-   여러 명의 개발자가 애플리케이션 개발시, 동일한 유형의 팝업창일지라도 디자인이 다르게 적용되는 경우가 발생 > 일관성 없는 디자인으로 인해 좋지 않은 경험을 가질 수 있다.
+-   Slot을 이용해 이런 부분을 해결할 수 있다.
