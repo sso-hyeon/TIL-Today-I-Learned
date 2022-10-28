@@ -378,3 +378,129 @@ export default {
 -   컴포넌트의 재활용성을 높여주는 기능
 -   여러 명의 개발자가 애플리케이션 개발시, 동일한 유형의 팝업창일지라도 디자인이 다르게 적용되는 경우가 발생 > 일관성 없는 디자인으로 인해 좋지 않은 경험을 가질 수 있다.
 -   Slot을 이용해 이런 부분을 해결할 수 있다.
+
+```vue
+<!-- SlotModalLayout -->
+<template>
+    <!-- 팝업의 기본틀 -->
+    <div class="modal-container">
+        <header>
+            <slot name="header"></slot>
+        </header>
+        <main>
+            <slot></slot>
+        </main>
+        <footer>
+            <slot name="footer"></slot>
+        </footer>
+    </div>
+</template>
+```
+
+🚀 Slot에 name을 지정해서 사용하는 것을 'Named Slots'라고 한다.
+
+```vue
+<!-- SlotUseModalLayout -->
+<template>
+    <modal-layout>
+        <template v-slot:header>
+            <h1>팝업 타이틀</h1>
+        </template>
+        <template v-slot:default>
+            <p>팝업 컨텐츠 1</p>
+            <p>팝업 컨텐츠 2</p>
+        </template>
+        <template>
+            <button type="button">닫기</button>
+        </template>
+    </modal-layout>
+</template>
+```
+
+-   컴포넌트 내에 여러 영역에 slot을 적용할 때는 name을 이용해서 적용하고, 하나의 영역에만 적용할 때는 굳이 slot에 name을 사용하지 않아도 된다.
+
+```vue
+<!-- PageTitle -->
+<template>
+    <h2>{{ title }}</h2>
+</template>
+<script>
+export default {
+    props: {
+        title: {
+            type: String,
+            default: "페이지 제목입니다."
+        }
+    }
+};
+</script>
+
+<!-- slot 사용하기 -->
+<template>
+    <h2><slot></slot></h2>
+</template>
+
+<PageTitle>컴포넌트 사용 예제 페이지</PageTitle>
+```
+
+-   v-slot: 대신에 단축어로 #
+-   팝업 페이지 타이틀 등 애플리케이션 전반에 걸쳐 다수의 컴포넌트에서 공통으로 사용해야 하는 공통 UI 요소를 slot 기반의 컴포넌트로 만들어서 제공하면, 전체 애플리케이션 개발 생산성 및 통일된 디자인을 통한 사용자 경험을 향상시킬 수 있다.
+-   이런 개발은 프로젝트 초기에 이루어져야 한다.
+-   한번 개발된 slot 기반의 컴포넌트는 다른 애플리케이션 개발할 때도 사용 가능하기 때문에 개발팀의 자산으로 지속적 관리
+
+## Provide / Inject
+
+-   부모 컴포넌트에서 자식의 자식 컴포넌트로 데이터를 전달하려면 3단계를 거쳐야하지만, provide/inject를 사용하면 한 번에 바로 전달 가능
+
+    > 부모 → 자식 컴포넌트 → 자식의 자식 컴포넌트
+
+<img src="imgs/provide-inject.png" />
+-   자식 컴포넌트로 전달하고자 하는 데이터를 provide에 정의
+-   부모 컴포넌트로부터 전달받고자 하는 데이터와 동일한 속성 이름으로 inject에 문자열 배열로 정의
+
+```vue
+<!-- Parent Component -->
+<template>
+    <ProvideInjectChild />
+</template>
+<script>
+import ProvideInjectChild from "./ProvideInjectChild";
+export default {
+    components: { ProvideInjectChild },
+    data() {
+        return {
+            items: ["A", "B"]
+        };
+    },
+    provide() {
+        return {
+            itemLength: this.items.length
+        };
+    }
+};
+</script>
+
+<!-- Child Component -->
+<script>
+export default {
+    inject: ["itemLength"],
+    mounted() {
+        console.log(this.itemLength);
+    }
+};
+</script>
+```
+
+-   계층 구조가 복잡해도 원하는 자식 컴포넌트로 데이터 한 번에 전달 가능
+-   But, inject를 통해서 데이터를 전달받는 자식 컴포넌트에서는 전달받는 데이터가 어떤 부모 컴포넌트에서 전달되는지 확인 불가능
+
+## Template refs
+
+-   Vue 개발 시 특별한 경우가 아니면 HTML 객체에 바로 접근해서 코드 구현할 일 ❌ > 어쩔 수 없이 자바스크립트에서 HTML 객체에 바로 접근해야 한다면 HTML 태그에 id 대신 ref 사용
+-   this.$refs 이용하여 ref 속성에 지정된 이름으로 HTML 객체에 접근 가능
+
+```
+<input type="text" ref="title" />
+
+this.$refs.title.focus();
+```

@@ -9,3 +9,7 @@
 | 22-10-06 |     5장     |         컴포넌트 Basic          |      🟢      | [Chapter5](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/Vue/chapter5.md) |
 | 22-10-09 |     6장     |       Mock 서버 준비하기        |      🟢      | [Chapter6](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/Vue/chapter6.md) |
 | 22-10-10 |     7장     |     서버 데이터 바인딩 실습     |      🟢      | [Chapter7](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/Vue/chapter7.md) |
+| 22-10-28 |     8장     |       컴포넌트 심화 학습        |      🟢      | [Chapter8](https://github.com/sso-hyeon/TIL-Today-I-Learned/blob/main/Vue/chapter8.md) |
+|          |     9장     |    Reusability & Composition    |              |                                                                                        |
+|          |    10장     |         Proxy 사용하기          |              |                                                                                        |
+|          |    11장     |           Vuex (v4.x)           |              |                                                                                        |
